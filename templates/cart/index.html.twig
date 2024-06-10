@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier!
+{% endblock %}
+
+{% block body %}
+	<main>
+		<div class="parent container-fluid min-vh-100">
+			<div class="col col-lg col-md col-sm bg-light p-3 text-center mb-5">
+				<h1>
+					<b>Résumé de votre Panier</b>
+				</h1>
+			</div>
+			<div class="col-12 col-lg-12 col-md-12 col-sm-12 p-3 text-center mx-auto">
+				{% if items is not empty %}
+					<table class="table table-sm">
+						<thead class="text-info">
+							<tr>
+								<th class="d-none d-md-table-cell">Article</th>
+								<th>aperçu</th>
+								<th class="d-none d-md-table-cell">Prix</th>
+								<th>Quantité</th>
+								<th>Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for item in items %}
+								<tr>
+									<td class="d-none d-md-table-cell">
+										<b>{{item.article.nameArticle}}</b>
+									</td>
+									<td><img style="max-height: 60px;" src="{{item.article.image}}"></td>
+									<td class="d-none d-md-table-cell">
+										<b>{{item.article.price}}
+											€</b>
+									</td>
+									<td>
+										<a href="{{ path('cart_plus', {'id' : item.article.id})}}" class="btn btn-primary btn-sm mr-2">
+											<i class="fas fa-plus"></i>
+										</a>
+										{{item.quantity}}
+										<a href="{{ path('cart_moins', {'id' : item.article.id})}}" class="btn btn-danger btn-sm ml-2">
+											<i class="fas fa-minus"></i>
+										</a>
+									</td>
+									<td>
+										<b>{{item.article.price * item.quantity}}
+											€</b>
+									</td>
+									<td>
+										<a href="{{ path('cart_remove', {'id' : item.article.id})}}" class="btn btn-danger btn-sm">
+											<i class="fas fa-trash-can"></i>
+										</a>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<hr>
+					<div class="col col-lg col-md col-sm mx-auto mt-5">
+						<h4 class="text-danger">Quantité article :
+							<span class="text-dark">{{ quantity_cart }}</span>
+						</h4>
+						<h4 class="text-danger">TVA :
+							<span class="text-dark">{{tva}}
+								%
+							</span>
+						</h4>
+						<h4 class="text-danger">Total Hors taxe :
+							<span class="text-dark">{{ totalHt }}
+								€</span>
+						</h4>
+						<h4 class="text-danger">Prix a payer :
+							<span class="text-dark">{{ totalTTC }}
+								€</span>
+						</h4>
+					</div>
+					{% if app.user %}
+						<div class="container">
+							<div class="row">
+								<div class="col col-lg col-md col-sm text-center mt-5 mb-5">
+									<a href="/commande" class="btn btn-success mt-2">
+										<i class="fas fa-cart-arrow-down mr-2"></i>Valider commande
+									</a>
+									<a href="{{ path('cart_delete')}}" class="btn btn-danger mt-2">
+										<i class="fas fa-trash mr-2"></i>Supprimer panier
+									</a>
+								</div>
+							</div>
+						</div>
+					{% else %}
+						<div class="container">
+							<div class="row">
+								<div class="col-8 col-lg-6 col-md-6 col-sm-6 text-center mb-5 mt-5 mx-auto">
+									<p class="border border-danger text-danger mb-5">
+										Veuillez vous connecter pour commander</p>
+									<a href="/login" class="btn btn-info mb-2">
+										<i class="fas fa-key mr-2"></i>Connexion
+									</a>
+									<a href="{{ path('cart_delete')}}" class="btn btn-danger mb-2">
+										<i class="fas fa-trash mr-2"></i>Supprimer panier
+									</a>
+								</div>
+							</div>
+						</div>
+					{% endif %}
+				{% else %}
+					<div class="col col-lg col-md col-sm text-center mb-5">
+						<h3>Votre panier est vide</h3>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</main>
+{% endblock %}

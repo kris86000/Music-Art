@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{# affichage du formulaire de création de compte #}
+{% block title %}Creer un Compte
+{% endblock %}
+
+{% block body %}
+	<!-- Formulaire création de compte -->
+	<main style="background-color: rgb(241, 241, 241);">
+		<div class="parent container min-vh-100">
+			<div class="row">
+				<div class="col text-center mb-3 mt-5">
+					<h3>
+						<b>Créer un compte</b>
+					</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 col-lg-6 col-md-8 col-sm-12 mx-auto">
+					{{ form_start(registrationForm) }}
+					{{ form_row(registrationForm.email) }}
+					{{ form_row(registrationForm.pseudo) }}
+					{{ form_row(registrationForm.prenomUser) }}
+					{{ form_row(registrationForm.nomUser) }}
+					{{ form_row(registrationForm.adresse) }}
+					{{ form_row(registrationForm.codePostal) }}
+					{{ form_row(registrationForm.ville) }}
+					{{ form_row(registrationForm.plainPassword, {label: 'Password'}) }}
+					{{ form_row(registrationForm.agreeTerms)}}
+					<button class="btn btn-primary d-flex mx-auto" type="submit">Enregistrer</button>
+					{{ form_end(registrationForm) }}
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

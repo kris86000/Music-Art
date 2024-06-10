@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+{# affichage des percussions #}
+{% block title %}Percussions!
+{% endblock %}
+
+{% block body %}
+	<main style="background-color: rgb(199, 199, 199);">
+		<div class="parent container min-vh-100">
+			<div class="row">
+				<div class="col text-center mt-2 mb-2" style="color:black;">
+					<h2>
+						<b>Les percussions</b>
+					</h2><br>
+					{# rajout barre search #}
+					<form action="{{ path('app_search') }}" method="get">
+						<div class="input-group col-12 col-lg-6 col-md-8 col-sm-12 mx-auto">
+							<input type="text" class="form-control" placeholder="Rechercher un article" name="searchArticle" aria-label="Recherche" aria-describedby="button-addon2">
+							<button class="btn btn-primary" type="submit" id="button-addon2">Rechercher</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="row">
+				{% for percussion in allPercussion %}
+					<div class="col-12 col-lg-4 col-md-6 col-sm-12 mb-3 my-3">
+						<form action="/add/{{percussion.id}}" method="post" class="h-100">
+							<div class="card pt-2 border border-dark h-100">
+								<img src="{{percussion.image}}" class="img-responsive" alt="{{percussion.nameArticle}}">
+								<div class="card-body rounded-top mt-2">
+									<h5 class="card-title text-center">
+										<b>{{percussion.nameArticle}}</b>
+									</h5>
+									<p class="card-text text-center text-success">
+										<b>{{percussion.price}}
+											€</b>
+									</p>
+									<div class="rating text-center">
+										<div class="rating text-warning">
+											{% for i in 1..5 %}
+												{% if i <= percussion.rating %}
+													<i class="fa fa-star"></i>
+												{% else %}
+													<i class="fa fa-star-o"></i>
+												{% endif %}
+											{% endfor %}
+										</div>
+									</div>
+								</div>
+								<div class="stock text-center mb-2">
+									{% if percussion.stock > 3 %}
+										<div class="quantiteStock text-success">
+											<b>{{ percussion.stock }}
+												articles en stock</b>
+										</div>
+									{% elseif percussion.stock == 0 %}
+										<div class="quantiteStock text-danger">
+											<b>plus d'articles en stock</b>
+										</div>
+									{% else %}
+										<div class="quantiteStock text-danger">
+											<b>plus que
+												{{ percussion.stock }}
+												articles</b>
+										</div>
+									{% endif %}
+								</div>
+								<a href="/detailArticle/{{percussion.id}}" class="btn btn-primary addPanier mb-2">
+									<i class="fas fa-camera mr-2"></i>fiche produit</a>
+								{% if percussion.stock >= 1 %}
+									<a href="{{ path('cart_add', {'id' : percussion.id})}}" class="btn btn-success addPanier mb-2">
+										<i class="fas fa-shopping-cart mr-2"></i>Ajouter au panier</a>
+								{% endif %}
+							</div>
+						</form>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		{{ knp_pagination_render(allPercussion) }}
+	</main>
+{% endblock %}

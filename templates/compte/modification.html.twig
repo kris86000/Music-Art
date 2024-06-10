@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification compte
+{% endblock %}
+
+{% block body %}
+	<main style="background-color: rgb(199, 199, 199);">
+		<div class="parent container min-vh-100">
+			<div class="row">
+				<div class="col col-lg col-md col-sm mt-5 mb-5">
+					<div class="card" id="account-modif" role="tabpanel" aria-labelledby="account-modif-tab">
+						<div class="card">
+							<div class="card-header text-center">
+								<h3>
+									<b>Modifier votre compte</b>
+								</h3>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-12 col-lg-6 col-md-8 col-sm-12 mx-auto">
+										{{ form_start(modifCompte) }}
+										{{ form_row(modifCompte.email) }}
+										{{ form_row(modifCompte.pseudo) }}
+										{{ form_row(modifCompte.prenomUser) }}
+										{{ form_row(modifCompte.nomUser) }}
+										{{ form_row(modifCompte.adresse) }}
+										{{ form_row(modifCompte.codePostal) }}
+										{{ form_row(modifCompte.ville) }}
+										<button class="btn btn-primary d-flex mx-auto mt-5" type="submit">Modifier</button>
+										{{ form_end(modifCompte) }}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

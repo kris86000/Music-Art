@@ -1,0 +1,59 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Fiche article
+{% endblock title %}
+
+
+{% block body %}
+	<main>
+		<div class="parent container min-vh-100">
+			<div class="row">
+				<div class="col-12 col-lg-12 col-md-12 col-sm-12 text-center">
+					<div class="card-img mt-5 mb-5">
+						<img src="{{articles.image}}" class="card-img" style="width: 50%; heigth: auto;" alt="{{articles.nameArticle}}"/>
+					</div>
+					<div class="pr_detail">
+						<div class="product_description">
+							<h4 class="product_title text-center">
+								<b>{{ articles.nameArticle }}</b>
+							</h4>
+							<div class="product_price text-center text-success mt-3">
+								<h4 class="price">
+									<b>{{ articles.price}}
+										€</b>
+								</h4>
+							</div>
+							<div class="rating text-warning mt-3 mb-3">
+								{% for i in 1..5 %}
+									{% if i <= articles.rating %}
+										<i class="fa fa-star"></i>
+									{% else %}
+										<i class="fa fa-star-o"></i>
+									{% endif %}
+								{% endfor %}
+							</div>
+							<div class="pr_desc text-info mt-2">
+								<p>{{articles.description}}</p>
+							</div>
+						</div>
+						<hr>
+						<div class="cart_extra text-center">
+							<div class="cart_btn">
+								{% if articles.stock >= 1 %}
+									<a href="{{ path('cart_add', {'id' : articles.id})}}" class="btn btn-success addPanier mt-3 w-25" type="button">
+										<i class="fas fa-basket-shopping mr-2"></i>
+										Ajouter au panier</a>
+								{% endif %}
+								<a href="{{ path('app_accueil')}}" class="btn btn-primary mt-3 w-25" type="button">
+									<i class="fas fa-home mr-2"></i>
+									Retour site</a>
+							</div>
+						</div>
+						<hr>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock body %}

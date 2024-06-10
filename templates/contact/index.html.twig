@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nous contacter
+{% endblock %}
+
+{% block body %}
+	<!-- Formulaire contact-->
+	<main style="background-color: rgb(241, 241, 241);">
+		<div class="parent container min-vh-100">
+			<div class="row">
+				<div class="col text-center mb-3 mt-5">
+					<h3>
+						<b>Nous contacter</b>
+					</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 col-lg-6 col-md-8 col-sm-12 mx-auto">
+					{{ form_start(contactType) }}
+					{{ form_row(contactType.prenom) }}
+					{{ form_row(contactType.nom) }}
+					{{ form_row(contactType.email) }}
+					{{ form_row(contactType.demande) }}
+					{{ form_row(contactType.message) }}
+					<button class="btn btn-primary d-flex mx-auto" type="submit">Envoyer</button>
+					{{ form_end(contactType) }}
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

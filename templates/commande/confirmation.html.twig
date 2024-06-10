@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande
+{% endblock %}
+
+{% block body %}
+	<main>
+		{% if details is not empty %}
+			<div class="parent container-fluid min-vh-100">
+
+				<div
+					class="row">
+					<!-- si il y a une commande on affiche le résumé-->
+					<div class="col text-center mt-5 mb-5 text-success">
+
+						<h3>Merci
+							<b>
+								<i>{{ app.user.nomUser }}
+									{{ app.user.prenomUser }}</i>
+							</b>
+							d'avoir commandez sur notre site, nous espérons vous revoir très vite !</h3>
+					</div>
+				</div>
+				<!-- resume commande -->
+				<div class="col text-center mt-2 mb-5 border border-dark">
+					<h3>
+						<i>Voici le résumé de votre commande :
+						</i>
+					</h3>
+				</div>
+				<div class="col-12 col-lg col-md col-sm-12 p-3 text-center">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Article</th>
+								<th>Quantité</th>
+								<th class="d-none d-sm-table-cell">Prix Unitaire</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for detail in details %}
+								<tr>
+									<td class="text-info">{{ detail.article.nameArticle }}</td>
+									<td>
+										<b>{{ detail.quantity }}</b>
+									</td>
+									<td class="text-success d-none d-sm-table-cell">{{ detail.article.price }}
+										€</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="1" class="text-center text-danger mb-5">
+									<h4>Montant Total TTC de la commande :
+									</h4>
+								</td>
+								<td class="text-center mb-5">
+									<h4>
+										<b>{{ montant }}
+											€</b>
+									</h4>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+				<!-- coordonnées user -->
+				<div class="col col-lg col-md col-sm-12 text-center mt-2 mb-5 border border-dark">
+					<h3>
+						<i>Vos Coordonnées :
+						</i>
+					</h3>
+				</div>
+				<div class="col col-lg col-md col-sm p-3 text-center">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Nom et Prénom</th>
+								<th>Adresse de livraison</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-info text-uppercase">{{ app.user.nomUser }}
+									{{ app.user.prenomUser }}</td>
+								<td class="text-info">{{ app.user.adresse }},
+									{{ app.user.codePostal }}
+									{{ app.user.ville}}
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{% endif %}
+		<!-- fin resume commande -->
+		<div class="row">
+			<div class="col text-center mb-2 mt-5">
+				<a href="{{ path('app_accueil')}}" class="btn btn-success mb-3">
+					<i class="fas fa-shop mr-2"></i>Retour au site</a>
+			</div>
+		</div>
+	</main>
+{% endblock %}
